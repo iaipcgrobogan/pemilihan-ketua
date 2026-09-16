@@ -2284,48 +2284,117 @@ async function loadCandidates() {
   `;
 
 
-  const result =
-    await apiRequest({
-
-      action:
-        'getCandidates'
-
-    });
+  let lastError = null;
 
 
-  if (!result.success) {
+  /*
+   * Coba maksimal 3 kali.
+   *
+   * Karena getCandidates hanya membaca data,
+   * retry aman dilakukan.
+   */
 
-    throw new Error(
-      result.message ||
-      'Gagal mengambil kandidat.'
-    );
-
-  }
-
-
-  candidates =
-    Array.isArray(
-      result.candidates
-    )
-      ? result.candidates
-      : [];
-
-
-  if (
-    candidates.length === 0
+  for (
+    let attempt = 1;
+    attempt <= 3;
+    attempt++
   ) {
 
-    throw new Error(
-      'Belum ada kandidat aktif.'
-    );
+    try {
+
+      const result =
+        await apiRequest({
+
+          action:
+            'getCandidates'
+
+        });
+
+
+      if (!result.success) {
+
+        throw new Error(
+          result.message ||
+          'Gagal mengambil kandidat.'
+        );
+
+      }
+
+
+      candidates =
+        Array.isArray(
+          result.candidates
+        )
+          ? result.candidates
+          : [];
+
+
+      if (
+        candidates.length === 0
+      ) {
+
+        throw new Error(
+          'Belum ada kandidat aktif.'
+        );
+
+      }
+
+
+      /*
+       * BERHASIL
+       */
+
+      renderCandidates();
+
+      return;
+
+
+    } catch (error) {
+
+      lastError = error;
+
+      console.warn(
+        'Gagal memuat kandidat. Percobaan ' +
+        attempt +
+        '/3',
+        error
+      );
+
+
+      /*
+       * Jangan langsung retry.
+       * Beri jeda sebentar.
+       */
+
+      if (attempt < 3) {
+
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              800 * attempt
+            )
+        );
+
+      }
+
+    }
 
   }
 
 
-  renderCandidates();
+  /*
+   * Semua percobaan gagal.
+   */
+
+  throw (
+    lastError ||
+    new Error(
+      'Gagal memuat data kandidat.'
+    )
+  );
 
 }
-
 
 
 /* =====================================================
