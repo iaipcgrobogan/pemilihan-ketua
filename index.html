@@ -1975,31 +1975,13 @@ async function apiRequest(
   payload
 ) {
 
-  /*
-   * Cache-buster.
-   *
-   * Membuat setiap request memiliki URL unik
-   * sehingga request tidak bergantung pada
-   * response redirect lama dari Google Apps Script.
-   */
-
-  const separator =
-    API_URL.includes('?')
-      ? '&'
-      : '?';
-
-  const requestUrl =
-    API_URL +
-    separator +
-    '_=' +
-    Date.now();
-
-
   const response =
     await fetch(
-      requestUrl,
+      API_URL,
       {
         method: 'POST',
+
+        redirect: 'follow',
 
         headers: {
           'Content-Type':
@@ -2025,7 +2007,35 @@ async function apiRequest(
   }
 
 
-  return await response.json();
+  const text =
+    await response.text();
+
+
+  if (!text) {
+
+    throw new Error(
+      'Server mengembalikan response kosong'
+    );
+
+  }
+
+
+  try {
+
+    return JSON.parse(text);
+
+  } catch (error) {
+
+    console.error(
+      'Response server bukan JSON:',
+      text
+    );
+
+    throw new Error(
+      'Response server tidak valid'
+    );
+
+  }
 
 }
 
