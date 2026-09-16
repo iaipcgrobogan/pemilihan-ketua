@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -8,17 +10,24 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Pemilihan Ketua PC IAI Grobogan</title>
+  <title>
+    Pemilihan Ketua PC IAI Grobogan
+  </title>
+
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+
     body {
+
       min-height: 100vh;
+
       font-family:
         Inter,
         Arial,
@@ -28,74 +37,153 @@
       background:
         linear-gradient(
           135deg,
-          #0f7a42 0%,
-          #16a05d 45%,
-          #eaf8f0 100%
+          #087f3e 0%,
+          #18a663 45%,
+          #e9f8ef 100%
         );
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #17352a;
 
-      padding: 20px;
     }
+
+
+    button,
+    input {
+
+      font-family: inherit;
+
+    }
+
+
+    .hidden {
+
+      display: none !important;
+
+    }
+
+
+    /* =====================================================
+       APP
+       ===================================================== */
 
     .app-container {
+
       width: 100%;
-      max-width: 430px;
+
+      min-height: 100vh;
+
+      padding: 25px 15px;
+
     }
 
+
+    .page {
+
+      width: 100%;
+
+      max-width: 1100px;
+
+      margin: auto;
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+       ===================================================== */
+
+    #loginPage {
+
+      min-height:
+        calc(100vh - 50px);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+    }
+
+
     .login-card {
-      background: #ffffff;
+
+      width: 100%;
+
+      max-width: 430px;
+
+      background: white;
 
       border-radius: 24px;
 
       padding: 32px 28px;
 
       box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.18);
+        0 20px 60px
+        rgba(0, 0, 0, 0.18);
 
       position: relative;
 
       overflow: hidden;
+
     }
 
+
     .top-line {
+
       position: absolute;
-      top: 0;
+
       left: 0;
       right: 0;
+      top: 0;
 
       height: 6px;
 
-      background: #087f3e;
+      background:
+        #087f3e;
+
     }
 
+
     .logo-wrapper {
+
       width: 90px;
+
       height: 90px;
 
-      margin: 10px auto 18px;
+      margin:
+        10px auto 18px;
 
       border-radius: 50%;
 
-      background: #f0faf4;
+      background:
+        #f0faf4;
+
+      border:
+        3px solid #d8f0e1;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      border: 3px solid #d8f0e1;
     }
+
 
     .logo-placeholder {
+
       font-size: 24px;
+
       font-weight: 800;
+
       color: #087f3e;
-      text-align: center;
+
     }
 
+
     .title {
+
       text-align: center;
 
       font-size: 22px;
@@ -105,9 +193,12 @@
       color: #153b2a;
 
       line-height: 1.3;
+
     }
 
+
     .subtitle {
+
       text-align: center;
 
       margin-top: 8px;
@@ -117,17 +208,26 @@
       font-size: 14px;
 
       line-height: 1.5;
+
     }
+
 
     .form {
+
       margin-top: 28px;
+
     }
+
 
     .form-group {
+
       margin-bottom: 18px;
+
     }
 
+
     label {
+
       display: block;
 
       margin-bottom: 8px;
@@ -137,18 +237,23 @@
       font-size: 14px;
 
       font-weight: 700;
+
     }
 
+
     input {
+
       width: 100%;
 
       height: 52px;
 
-      border: 1px solid #d7e2dc;
+      border:
+        1px solid #d7e2dc;
 
       border-radius: 12px;
 
-      padding: 0 15px;
+      padding:
+        0 15px;
 
       font-size: 16px;
 
@@ -156,49 +261,65 @@
 
       background: #fbfdfc;
 
-      transition: 0.2s;
     }
+
 
     input:focus {
-      border-color: #16a05d;
+
+      border-color:
+        #16a05d;
 
       box-shadow:
-        0 0 0 3px rgba(22, 160, 93, 0.12);
+        0 0 0 3px
+        rgba(22,160,93,.12);
 
-      background: #ffffff;
+      background: white;
+
     }
+
 
     .pin-wrapper {
+
       position: relative;
+
     }
+
 
     .pin-wrapper input {
-      padding-right: 60px;
+
+      padding-right: 80px;
+
     }
 
+
     .toggle-pin {
+
       position: absolute;
 
       right: 10px;
 
       top: 50%;
 
-      transform: translateY(-50%);
+      transform:
+        translateY(-50%);
 
       border: none;
 
       background: transparent;
-
-      cursor: pointer;
 
       color: #087f3e;
 
       font-size: 13px;
 
       font-weight: 700;
+
+      cursor: pointer;
+
     }
 
-    .login-button {
+
+    .primary-button {
+
       width: 100%;
 
       height: 54px;
@@ -207,7 +328,8 @@
 
       border-radius: 13px;
 
-      background: #087f3e;
+      background:
+        #087f3e;
 
       color: white;
 
@@ -217,22 +339,29 @@
 
       cursor: pointer;
 
-      transition: 0.2s;
-
-      margin-top: 5px;
     }
 
-    .login-button:hover {
-      background: #066a34;
+
+    .primary-button:hover {
+
+      background:
+        #066b35;
+
     }
 
-    .login-button:disabled {
-      opacity: 0.65;
 
-      cursor: not-allowed;
+    .primary-button:disabled {
+
+      opacity: .6;
+
+      cursor:
+        not-allowed;
+
     }
+
 
     .loading {
+
       display: none;
 
       align-items: center;
@@ -246,28 +375,44 @@
       color: #087f3e;
 
       font-size: 13px;
+
     }
 
+
     .spinner {
+
       width: 16px;
+
       height: 16px;
 
-      border: 2px solid #d4eadc;
+      border:
+        2px solid #d4eadc;
 
-      border-top-color: #087f3e;
+      border-top-color:
+        #087f3e;
 
       border-radius: 50%;
 
-      animation: spin 0.8s linear infinite;
+      animation:
+        spin .8s linear infinite;
+
     }
+
 
     @keyframes spin {
+
       to {
-        transform: rotate(360deg);
+
+        transform:
+          rotate(360deg);
+
       }
+
     }
 
+
     .message {
+
       display: none;
 
       margin-top: 16px;
@@ -279,29 +424,44 @@
       font-size: 13px;
 
       line-height: 1.5;
+
     }
+
 
     .message.error {
+
       display: block;
 
-      background: #fff1f1;
+      background:
+        #fff1f1;
 
-      color: #b42318;
+      color:
+        #b42318;
 
-      border: 1px solid #ffd4d4;
+      border:
+        1px solid #ffd4d4;
+
     }
+
 
     .message.success {
+
       display: block;
 
-      background: #eefbf3;
+      background:
+        #eefbf3;
 
-      color: #087f3e;
+      color:
+        #087f3e;
 
-      border: 1px solid #ccefd9;
+      border:
+        1px solid #ccefd9;
+
     }
 
+
     .footer {
+
       text-align: center;
 
       margin-top: 22px;
@@ -311,55 +471,883 @@
       font-size: 11px;
 
       line-height: 1.5;
+
     }
 
-    @media (max-width: 480px) {
 
-      body {
-        padding: 12px;
-      }
+    /* =====================================================
+       VOTING PAGE
+       ===================================================== */
 
-      .login-card {
-        padding: 28px 20px;
-        border-radius: 20px;
-      }
+    #votePage {
 
-      .title {
-        font-size: 20px;
-      }
+      display: none;
+
     }
+
+
+    .vote-header {
+
+      background: white;
+
+      border-radius: 20px;
+
+      padding: 24px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.12);
+
+    }
+
+
+    .header-top {
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      gap: 15px;
+
+    }
+
+
+    .header-title {
+
+      font-size: 25px;
+
+      font-weight: 800;
+
+      color:
+        #123b28;
+
+    }
+
+
+    .header-subtitle {
+
+      margin-top: 6px;
+
+      color:
+        #6b7b73;
+
+      font-size: 14px;
+
+    }
+
+
+    .voter-badge {
+
+      padding:
+        10px 14px;
+
+      border-radius: 12px;
+
+      background:
+        #edf9f2;
+
+      color:
+        #087f3e;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      white-space:
+        nowrap;
+
+    }
+
+
+    .instruction {
+
+      background:
+        #fffdf2;
+
+      border:
+        1px solid #f1e6ad;
+
+      color:
+        #675a16;
+
+      border-radius: 14px;
+
+      padding: 15px;
+
+      margin-bottom: 20px;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+    }
+
+
+    /* =====================================================
+       CANDIDATES
+       ===================================================== */
+
+    .candidate-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 20px;
+
+    }
+
+
+    .candidate-card {
+
+      background: white;
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.12);
+
+      border:
+        3px solid transparent;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .candidate-card:hover {
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.16);
+
+    }
+
+
+    .candidate-card.selected {
+
+      border-color:
+        #087f3e;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(8,127,62,.12);
+
+    }
+
+
+    .candidate-photo {
+
+      width: 100%;
+
+      height: 270px;
+
+      object-fit: cover;
+
+      background:
+        #eef5f1;
+
+      display: block;
+
+    }
+
+
+    .photo-placeholder {
+
+      width: 100%;
+
+      height: 270px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e8f6ed,
+          #ccebd8
+        );
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color:
+        #087f3e;
+
+      font-size: 50px;
+
+      font-weight: 800;
+
+    }
+
+
+    .candidate-body {
+
+      padding: 20px;
+
+    }
+
+
+    .candidate-number {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 42px;
+
+      height: 42px;
+
+      border-radius: 50%;
+
+      background:
+        #087f3e;
+
+      color: white;
+
+      font-size: 18px;
+
+      font-weight: 800;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .candidate-name {
+
+      font-size: 21px;
+
+      font-weight: 800;
+
+      color:
+        #173b2b;
+
+      line-height: 1.3;
+
+      min-height: 55px;
+
+    }
+
+
+    .candidate-section {
+
+      margin-top: 18px;
+
+    }
+
+
+    .candidate-section-title {
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      color:
+        #087f3e;
+
+      margin-bottom: 6px;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        .3px;
+
+    }
+
+
+    .candidate-visi {
+
+      font-size: 13px;
+
+      color:
+        #5e6e66;
+
+      line-height: 1.6;
+
+    }
+
+
+    .candidate-misi {
+
+      font-size: 13px;
+
+      color:
+        #5e6e66;
+
+      line-height: 1.6;
+
+      white-space:
+        pre-line;
+
+    }
+
+
+    .select-button {
+
+      width: 100%;
+
+      margin-top: 20px;
+
+      height: 48px;
+
+      border:
+        2px solid #087f3e;
+
+      border-radius: 11px;
+
+      background: white;
+
+      color:
+        #087f3e;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+    }
+
+
+    .candidate-card.selected
+    .select-button {
+
+      background:
+        #087f3e;
+
+      color: white;
+
+    }
+
+
+    /* =====================================================
+       CONFIRMATION AREA
+       ===================================================== */
+
+    .confirmation-area {
+
+      margin-top: 25px;
+
+      background: white;
+
+      border-radius: 20px;
+
+      padding: 22px;
+
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.12);
+
+      display: none;
+
+    }
+
+
+    .confirmation-area.show {
+
+      display: block;
+
+    }
+
+
+    .confirmation-title {
+
+      font-size: 18px;
+
+      font-weight: 800;
+
+      color:
+        #173b2b;
+
+    }
+
+
+    .selected-info {
+
+      margin-top: 12px;
+
+      padding: 14px;
+
+      border-radius: 12px;
+
+      background:
+        #eef9f2;
+
+      color:
+        #087f3e;
+
+      font-weight: 700;
+
+    }
+
+
+    .confirm-button {
+
+      margin-top: 15px;
+
+      width: 100%;
+
+      height: 54px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      background:
+        #087f3e;
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+    }
+
+
+    .confirm-button:disabled {
+
+      opacity: .6;
+
+      cursor:
+        not-allowed;
+
+    }
+
+
+    /* =====================================================
+       MODAL
+       ===================================================== */
+
+    .modal-overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(0,0,0,.55);
+
+      display: none;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding: 20px;
+
+      z-index: 1000;
+
+    }
+
+
+    .modal-overlay.show {
+
+      display: flex;
+
+    }
+
+
+    .modal {
+
+      width: 100%;
+
+      max-width: 430px;
+
+      background: white;
+
+      border-radius: 20px;
+
+      padding: 25px;
+
+      box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.3);
+
+    }
+
+
+    .modal-icon {
+
+      width: 60px;
+
+      height: 60px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      background:
+        #edf9f2;
+
+      color:
+        #087f3e;
+
+      display: flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+    }
+
+
+    .modal-title {
+
+      text-align: center;
+
+      margin-top: 15px;
+
+      font-size: 20px;
+
+      font-weight: 800;
+
+    }
+
+
+    .modal-text {
+
+      text-align: center;
+
+      margin-top: 10px;
+
+      color:
+        #697970;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .modal-buttons {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+
+    .modal-cancel {
+
+      height: 48px;
+
+      border:
+        1px solid #d3ddd7;
+
+      border-radius: 11px;
+
+      background: white;
+
+      color:
+        #52635a;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+    }
+
+
+    .modal-confirm {
+
+      height: 48px;
+
+      border: none;
+
+      border-radius: 11px;
+
+      background:
+        #087f3e;
+
+      color: white;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+    }
+
+
+    /* =====================================================
+       SUCCESS PAGE
+       ===================================================== */
+
+    #successPage {
+
+      display: none;
+
+      min-height:
+        calc(100vh - 50px);
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+    }
+
+
+    .success-card {
+
+      width: 100%;
+
+      max-width: 500px;
+
+      background: white;
+
+      border-radius: 25px;
+
+      padding: 35px 25px;
+
+      text-align: center;
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.18);
+
+    }
+
+
+    .success-icon {
+
+      width: 85px;
+
+      height: 85px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      background:
+        #eaf8ef;
+
+      color:
+        #087f3e;
+
+      display: flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size: 45px;
+
+      font-weight: 800;
+
+    }
+
+
+    .success-title {
+
+      margin-top: 20px;
+
+      font-size: 25px;
+
+      font-weight: 800;
+
+      color:
+        #173b2b;
+
+    }
+
+
+    .success-text {
+
+      margin-top: 10px;
+
+      color:
+        #65756d;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+
+    }
+
+
+    .vote-id {
+
+      margin-top: 18px;
+
+      padding: 14px;
+
+      background:
+        #f3f7f4;
+
+      border-radius: 12px;
+
+      font-size: 13px;
+
+      color:
+        #53645b;
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media
+    (max-width: 800px) {
+
+      .candidate-grid {
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
+      }
+
+    }
+
+
+    @media
+    (max-width: 600px) {
+
+      .app-container {
+
+        padding:
+          12px;
+
+      }
+
+
+      .header-top {
+
+        flex-direction:
+          column;
+
+        align-items:
+          flex-start;
+
+      }
+
+
+      .candidate-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .candidate-photo,
+      .photo-placeholder {
+
+        height: 300px;
+
+      }
+
+
+      .vote-header {
+
+        padding: 18px;
+
+      }
+
+
+      .header-title {
+
+        font-size: 21px;
+
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <div class="app-container">
+
+<div class="app-container">
+
+
+  <!-- ===================================================
+       LOGIN PAGE
+       =================================================== -->
+
+  <div
+    id="loginPage"
+    class="page"
+  >
 
     <div class="login-card">
 
       <div class="top-line"></div>
 
+
       <div class="logo-wrapper">
+
         <div class="logo-placeholder">
           IAI
         </div>
+
       </div>
 
+
       <h1 class="title">
+
         PEMILIHAN KETUA
         <br>
         PC IAI GROBOGAN
+
       </h1>
 
+
       <p class="subtitle">
-        Silakan masukkan ID Pemilih dan PIN
-        untuk mengikuti proses pemilihan.
+
+        Silakan masukkan ID Pemilih
+        dan PIN untuk mengikuti
+        proses pemilihan.
+
       </p>
+
 
       <form
         id="loginForm"
         class="form"
       >
+
 
         <div class="form-group">
 
@@ -370,7 +1358,6 @@
           <input
             type="text"
             id="idPemilih"
-            name="idPemilih"
             placeholder="Contoh: P00002"
             autocomplete="username"
             autocapitalize="characters"
@@ -386,17 +1373,18 @@
             PIN
           </label>
 
+
           <div class="pin-wrapper">
 
             <input
               type="password"
               id="pin"
-              name="pin"
               placeholder="Masukkan PIN"
               inputmode="numeric"
               autocomplete="current-password"
               required
             >
+
 
             <button
               type="button"
@@ -413,7 +1401,7 @@
 
         <button
           type="submit"
-          class="login-button"
+          class="primary-button"
           id="loginButton"
         >
           MASUK
@@ -422,17 +1410,23 @@
 
         <div
           class="loading"
-          id="loading"
+          id="loginLoading"
         >
+
           <div class="spinner"></div>
-          <span>Memverifikasi...</span>
+
+          <span>
+            Memverifikasi...
+          </span>
+
         </div>
 
 
         <div
-          id="message"
+          id="loginMessage"
           class="message"
         ></div>
+
 
       </form>
 
@@ -441,7 +1435,6 @@
 
         Sistem Pemilihan Ketua
         <br>
-
         PC IAI Grobogan
 
       </div>
@@ -451,338 +1444,1452 @@
   </div>
 
 
+
+  <!-- ===================================================
+       VOTING PAGE
+       =================================================== -->
+
+  <div
+    id="votePage"
+    class="page"
+  >
+
+
+    <div class="vote-header">
+
+      <div class="header-top">
+
+        <div>
+
+          <div class="header-title">
+            Pemilihan Ketua
+          </div>
+
+          <div class="header-subtitle">
+            PC IAI Grobogan
+          </div>
+
+        </div>
+
+
+        <div
+          class="voter-badge"
+          id="voterBadge"
+        >
+          Pemilih
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="instruction">
+
+      <strong>
+        Petunjuk:
+      </strong>
+
+      Silakan baca informasi masing-masing
+      kandidat dengan teliti, kemudian pilih
+      <strong>satu kandidat</strong> yang akan
+      Anda pilih sebagai Ketua PC IAI Grobogan.
+
+    </div>
+
+
+    <div
+      id="candidateGrid"
+      class="candidate-grid"
+    >
+
+      <!-- Kandidat dibuat oleh JavaScript -->
+
+    </div>
+
+
+    <div
+      id="confirmationArea"
+      class="confirmation-area"
+    >
+
+      <div class="confirmation-title">
+
+        Kandidat yang Anda pilih
+
+      </div>
+
+
+      <div
+        id="selectedInfo"
+        class="selected-info"
+      ></div>
+
+
+      <button
+        type="button"
+        class="confirm-button"
+        id="confirmVoteButton"
+      >
+
+        LANJUTKAN KONFIRMASI
+
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ===================================================
+       SUCCESS PAGE
+       =================================================== -->
+
+  <div
+    id="successPage"
+    class="page"
+  >
+
+    <div class="success-card">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+
+      <div class="success-title">
+
+        Pemilihan Berhasil
+
+      </div>
+
+
+      <div class="success-text">
+
+        Suara Anda telah berhasil
+        disimpan ke dalam sistem.
+
+        <br><br>
+
+        Terima kasih telah menggunakan
+        hak suara Anda.
+
+      </div>
+
+
+      <div
+        id="voteIdDisplay"
+        class="vote-id"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     CONFIRMATION MODAL
+     ===================================================== -->
+
+<div
+  id="confirmModal"
+  class="modal-overlay"
+>
+
+  <div class="modal">
+
+    <div class="modal-icon">
+      ?
+    </div>
+
+
+    <div class="modal-title">
+
+      Konfirmasi Pilihan
+
+    </div>
+
+
+    <div
+      id="modalText"
+      class="modal-text"
+    >
+
+      Apakah Anda yakin dengan
+      pilihan kandidat ini?
+
+    </div>
+
+
+    <div class="modal-buttons">
+
+      <button
+        type="button"
+        class="modal-cancel"
+        id="cancelModal"
+      >
+
+        KEMBALI
+
+      </button>
+
+
+      <button
+        type="button"
+        class="modal-confirm"
+        id="confirmModalButton"
+      >
+
+        YA, PILIH
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
 <script>
 
-  /* =====================================================
-   * KONFIGURASI API
-   * ===================================================== */
 
-  const API_URL =
-    'https://script.google.com/macros/s/AKfycbw8hsSy0CZ8OnxLW_KpwuHOIpTTcQh94ZD2CqXFOv3l3GlEjckszIm9LGkEVd-oTRlK/exec';
+/* =====================================================
+   KONFIGURASI API
+   ===================================================== */
 
-
-  /* =====================================================
-   * ELEMENT
-   * ===================================================== */
-
-  const loginForm =
-    document.getElementById('loginForm');
-
-  const idPemilihInput =
-    document.getElementById('idPemilih');
-
-  const pinInput =
-    document.getElementById('pin');
-
-  const loginButton =
-    document.getElementById('loginButton');
-
-  const togglePin =
-    document.getElementById('togglePin');
-
-  const loading =
-    document.getElementById('loading');
-
-  const message =
-    document.getElementById('message');
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbw8hsSy0CZ8OnxLW_KpwuHOIpTTcQh94ZD2CqXFOv3l3GlEjckszIm9LGkEVd-oTRlK/exec';
 
 
-  /* =====================================================
-   * TAMPILKAN / SEMBUNYIKAN PIN
-   * ===================================================== */
 
-  togglePin.addEventListener(
-    'click',
-    function () {
+/* =====================================================
+   ELEMENT
+   ===================================================== */
 
-      if (pinInput.type === 'password') {
+const loginPage =
+  document.getElementById('loginPage');
 
-        pinInput.type = 'text';
+const votePage =
+  document.getElementById('votePage');
 
-        togglePin.textContent =
-          'Sembunyikan';
+const successPage =
+  document.getElementById('successPage');
 
-      } else {
+const loginForm =
+  document.getElementById('loginForm');
 
-        pinInput.type = 'password';
+const idPemilihInput =
+  document.getElementById('idPemilih');
 
-        togglePin.textContent =
-          'Tampilkan';
+const pinInput =
+  document.getElementById('pin');
 
-      }
+const loginButton =
+  document.getElementById('loginButton');
+
+const loginLoading =
+  document.getElementById('loginLoading');
+
+const loginMessage =
+  document.getElementById('loginMessage');
+
+const togglePin =
+  document.getElementById('togglePin');
+
+const candidateGrid =
+  document.getElementById('candidateGrid');
+
+const voterBadge =
+  document.getElementById('voterBadge');
+
+const confirmationArea =
+  document.getElementById('confirmationArea');
+
+const selectedInfo =
+  document.getElementById('selectedInfo');
+
+const confirmVoteButton =
+  document.getElementById('confirmVoteButton');
+
+const confirmModal =
+  document.getElementById('confirmModal');
+
+const modalText =
+  document.getElementById('modalText');
+
+const cancelModal =
+  document.getElementById('cancelModal');
+
+const confirmModalButton =
+  document.getElementById('confirmModalButton');
+
+const voteIdDisplay =
+  document.getElementById('voteIdDisplay');
+
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+let candidates = [];
+
+let selectedCandidate = null;
+
+let submittingVote = false;
+
+
+
+/* =====================================================
+   PIN TOGGLE
+   ===================================================== */
+
+togglePin.addEventListener(
+  'click',
+  () => {
+
+    if (
+      pinInput.type === 'password'
+    ) {
+
+      pinInput.type = 'text';
+
+      togglePin.textContent =
+        'Sembunyikan';
+
+    } else {
+
+      pinInput.type = 'password';
+
+      togglePin.textContent =
+        'Tampilkan';
 
     }
-  );
-
-
-  /* =====================================================
-   * MESSAGE
-   * ===================================================== */
-
-  function showMessage(
-    text,
-    type = 'error'
-  ) {
-
-    message.textContent = text;
-
-    message.className =
-      'message ' + type;
 
   }
+);
 
 
-  function hideMessage() {
 
-    message.textContent = '';
+/* =====================================================
+   MESSAGE
+   ===================================================== */
 
-    message.className =
-      'message';
+function showLoginMessage(
+  text,
+  type = 'error'
+) {
 
-  }
+  loginMessage.textContent =
+    text;
+
+  loginMessage.className =
+    'message ' + type;
+
+}
 
 
-  /* =====================================================
-   * LOADING
-   * ===================================================== */
+function hideLoginMessage() {
 
-  function setLoading(
+  loginMessage.textContent =
+    '';
+
+  loginMessage.className =
+    'message';
+
+}
+
+
+
+/* =====================================================
+   LOGIN LOADING
+   ===================================================== */
+
+function setLoginLoading(
+  state
+) {
+
+  loginButton.disabled =
+    state;
+
+  loginLoading.style.display =
     state
-  ) {
+      ? 'flex'
+      : 'none';
 
-    loginButton.disabled =
-      state;
+  loginButton.textContent =
+    state
+      ? 'MEMPROSES...'
+      : 'MASUK';
 
-    loading.style.display =
-      state
-        ? 'flex'
-        : 'none';
+}
 
-    loginButton.textContent =
-      state
-        ? 'MEMPROSES...'
-        : 'MASUK';
+
+
+/* =====================================================
+   API REQUEST
+   ===================================================== */
+
+async function apiRequest(
+  payload
+) {
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+
+        method: 'POST',
+
+        headers: {
+
+          'Content-Type':
+            'text/plain;charset=utf-8'
+
+        },
+
+        body:
+          JSON.stringify(payload)
+
+      }
+    );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      'Server HTTP ' +
+      response.status
+    );
 
   }
 
 
-  /* =====================================================
-   * API REQUEST
-   * ===================================================== */
+  return await response.json();
 
-  async function apiRequest(
-    payload
-  ) {
+}
 
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method: 'POST',
 
-          headers: {
-            'Content-Type':
-              'text/plain;charset=utf-8'
-          },
 
-          body:
-            JSON.stringify(payload)
-        }
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+loginForm.addEventListener(
+  'submit',
+  async event => {
+
+    event.preventDefault();
+
+    hideLoginMessage();
+
+
+    const idPemilih =
+      idPemilihInput
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const pin =
+      pinInput
+        .value
+        .trim();
+
+
+    if (!idPemilih) {
+
+      showLoginMessage(
+        'ID Pemilih wajib diisi.'
       );
 
-
-    if (!response.ok) {
-
-      throw new Error(
-        'Server mengembalikan HTTP ' +
-        response.status
-      );
+      return;
 
     }
 
 
-    const result =
-      await response.json();
+    if (!pin) {
+
+      showLoginMessage(
+        'PIN wajib diisi.'
+      );
+
+      return;
+
+    }
 
 
-    return result;
+    setLoginLoading(true);
+
+
+    try {
+
+      /*
+       * LOGIN
+       */
+
+      const result =
+        await apiRequest({
+
+          action:
+            'login',
+
+          idPemilih:
+            idPemilih,
+
+          pin:
+            pin
+
+        });
+
+
+      if (!result.success) {
+
+        showLoginMessage(
+          result.message ||
+          'Login gagal.'
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * SIMPAN SESI
+       */
+
+      sessionStorage.setItem(
+        'vote_token',
+        result.token
+      );
+
+
+      sessionStorage.setItem(
+        'vote_id_pemilih',
+        result.idPemilih
+      );
+
+
+      sessionStorage.setItem(
+        'vote_nama',
+        result.nama
+      );
+
+
+      /*
+       * LANJUT VALIDASI TOKEN
+       */
+
+      const valid =
+        await validateSession();
+
+
+      if (!valid) {
+
+        sessionStorage.clear();
+
+        showLoginMessage(
+          'Sesi pemilihan tidak dapat divalidasi.'
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * AMBIL KANDIDAT
+       */
+
+      await loadCandidates();
+
+
+      /*
+       * TAMPILKAN HALAMAN PEMILIHAN
+       */
+
+      showVotePage();
+
+
+    } catch (error) {
+
+      console.error(
+        'LOGIN ERROR:',
+        error
+      );
+
+      showLoginMessage(
+        'Tidak dapat terhubung ke server. ' +
+        'Periksa koneksi internet.'
+      );
+
+
+    } finally {
+
+      setLoginLoading(false);
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   VALIDATE SESSION
+   ===================================================== */
+
+async function validateSession() {
+
+  const token =
+    sessionStorage.getItem(
+      'vote_token'
+    );
+
+
+  if (!token) {
+
+    return false;
 
   }
 
 
-  /* =====================================================
-   * LOGIN
-   * ===================================================== */
+  const result =
+    await apiRequest({
 
-  loginForm.addEventListener(
-    'submit',
-    async function (event) {
+      action:
+        'validateToken',
 
-      event.preventDefault();
+      token:
+        token
 
-      hideMessage();
-
-      const idPemilih =
-        idPemilihInput
-          .value
-          .trim()
-          .toUpperCase();
-
-      const pin =
-        pinInput
-          .value
-          .trim();
+    });
 
 
-      if (!idPemilih) {
+  if (!result.success) {
 
-        showMessage(
-          'ID Pemilih wajib diisi.'
+    return false;
+
+  }
+
+
+  if (!result.valid) {
+
+    return false;
+
+  }
+
+
+  /*
+   * Sinkronisasi identitas
+   */
+
+  if (result.idPemilih) {
+
+    sessionStorage.setItem(
+      'vote_id_pemilih',
+      result.idPemilih
+    );
+
+  }
+
+
+  if (result.nama) {
+
+    sessionStorage.setItem(
+      'vote_nama',
+      result.nama
+    );
+
+  }
+
+
+  return true;
+
+}
+
+
+
+/* =====================================================
+   LOAD CANDIDATES
+   ===================================================== */
+
+async function loadCandidates() {
+
+  candidateGrid.innerHTML = `
+
+    <div
+      style="
+        grid-column:1/-1;
+        background:white;
+        border-radius:18px;
+        padding:30px;
+        text-align:center;
+        color:#68786f;
+      "
+    >
+
+      <div
+        class="spinner"
+        style="
+          margin:0 auto 12px;
+        "
+      ></div>
+
+      Memuat data kandidat...
+
+    </div>
+
+  `;
+
+
+  const result =
+    await apiRequest({
+
+      action:
+        'getCandidates'
+
+    });
+
+
+  if (!result.success) {
+
+    throw new Error(
+      result.message ||
+      'Gagal mengambil kandidat.'
+    );
+
+  }
+
+
+  candidates =
+    Array.isArray(
+      result.candidates
+    )
+      ? result.candidates
+      : [];
+
+
+  if (
+    candidates.length === 0
+  ) {
+
+    throw new Error(
+      'Belum ada kandidat aktif.'
+    );
+
+  }
+
+
+  renderCandidates();
+
+}
+
+
+
+/* =====================================================
+   RENDER CANDIDATES
+   ===================================================== */
+
+function renderCandidates() {
+
+  candidateGrid.innerHTML =
+    '';
+
+
+  candidates.forEach(
+    candidate => {
+
+      const card =
+        document.createElement(
+          'div'
         );
 
-        idPemilihInput.focus();
 
-        return;
-
-      }
+      card.className =
+        'candidate-card';
 
 
-      if (!pin) {
-
-        showMessage(
-          'PIN wajib diisi.'
-        );
-
-        pinInput.focus();
-
-        return;
-
-      }
+      card.dataset.id =
+        candidate.id;
 
 
-      setLoading(true);
-
-
-      try {
-
-        const result =
-          await apiRequest({
-
-            action:
-              'login',
-
-            idPemilih:
-              idPemilih,
-
-            pin:
-              pin
-
-          });
-
-
-        console.log(
-          'RESPON LOGIN:',
-          result
+      const photo =
+        document.createElement(
+          'div'
         );
 
 
-        if (!result.success) {
+      if (
+        candidate.foto
+      ) {
 
-          showMessage(
-            result.message ||
-            'Login gagal.'
+        const img =
+          document.createElement(
+            'img'
           );
 
-          return;
 
-        }
+        img.className =
+          'candidate-photo';
 
 
-        /*
-         * LOGIN BERHASIL
-         *
-         * Token disimpan untuk
-         * proses berikutnya.
-         */
+        img.src =
+          candidate.foto;
 
-        sessionStorage.setItem(
-          'vote_token',
-          result.token
+
+        img.alt =
+          'Foto ' +
+          candidate.nama;
+
+
+        img.loading =
+          'lazy';
+
+
+        img.onerror =
+          function () {
+
+            this.style.display =
+              'none';
+
+            photo
+              .querySelector(
+                '.photo-placeholder'
+              )
+              .classList.remove(
+                'hidden'
+              );
+
+          };
+
+
+        photo.appendChild(
+          img
         );
-
-
-        sessionStorage.setItem(
-          'vote_id_pemilih',
-          result.idPemilih
-        );
-
-
-        sessionStorage.setItem(
-          'vote_nama',
-          result.nama
-        );
-
-
-        showMessage(
-          'Login berhasil. Selamat datang, ' +
-          result.nama + '.',
-          'success'
-        );
-
-
-        /*
-         * Untuk tahap ini kita
-         * belum pindah halaman.
-         *
-         * Setelah login terbukti berhasil,
-         * tahap berikutnya akan diarahkan
-         * ke halaman kandidat.
-         */
-
-        console.log(
-          'TOKEN:',
-          result.token
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          'LOGIN ERROR:',
-          error
-        );
-
-
-        showMessage(
-          'Tidak dapat terhubung ke server. ' +
-          'Periksa koneksi internet atau URL API.'
-        );
-
-
-      } finally {
-
-        setLoading(false);
 
       }
+
+
+      const placeholder =
+        document.createElement(
+          'div'
+        );
+
+
+      placeholder.className =
+        'photo-placeholder' +
+        (
+          candidate.foto
+            ? ' hidden'
+            : ''
+        );
+
+
+      placeholder.textContent =
+        candidate.no;
+
+
+      photo.appendChild(
+        placeholder
+      );
+
+
+      card.appendChild(
+        photo
+      );
+
+
+      const body =
+        document.createElement(
+          'div'
+        );
+
+
+      body.className =
+        'candidate-body';
+
+
+      body.innerHTML = `
+
+        <div class="candidate-number">
+          ${escapeHtml(candidate.no)}
+        </div>
+
+        <div class="candidate-name">
+          ${escapeHtml(candidate.nama)}
+        </div>
+
+        <div class="candidate-section">
+
+          <div class="candidate-section-title">
+            Visi
+          </div>
+
+          <div class="candidate-visi">
+            ${escapeHtml(candidate.visi || '-')}
+          </div>
+
+        </div>
+
+        <div class="candidate-section">
+
+          <div class="candidate-section-title">
+            Misi
+          </div>
+
+          <div class="candidate-misi">
+            ${escapeHtml(candidate.misi || '-')}
+          </div>
+
+        </div>
+
+      `;
+
+
+      const selectButton =
+        document.createElement(
+          'button'
+        );
+
+
+      selectButton.type =
+        'button';
+
+
+      selectButton.className =
+        'select-button';
+
+
+      selectButton.textContent =
+        'PILIH KANDIDAT';
+
+
+      selectButton.addEventListener(
+        'click',
+        () => {
+
+          selectCandidate(
+            candidate
+          );
+
+        }
+      );
+
+
+      body.appendChild(
+        selectButton
+      );
+
+
+      card.appendChild(
+        body
+      );
+
+
+      candidateGrid.appendChild(
+        card
+      );
 
     }
   );
 
+}
 
-  /* =====================================================
-   * INITIAL CHECK
-   * ===================================================== */
 
-  console.log(
-    'Frontend Pemilihan aktif.'
-  );
 
-  console.log(
-    'API:',
-    API_URL
-  );
+/* =====================================================
+   SELECT CANDIDATE
+   ===================================================== */
+
+function selectCandidate(
+  candidate
+) {
+
+  selectedCandidate =
+    candidate;
+
+
+  document
+    .querySelectorAll(
+      '.candidate-card'
+    )
+    .forEach(
+      card => {
+
+        card.classList.remove(
+          'selected'
+        );
+
+        const button =
+          card.querySelector(
+            '.select-button'
+          );
+
+        if (button) {
+
+          button.textContent =
+            'PILIH KANDIDAT';
+
+        }
+
+      }
+    );
+
+
+  const selectedCard =
+    document.querySelector(
+      `.candidate-card[data-id="${CSS.escape(candidate.id)}"]`
+    );
+
+
+  if (selectedCard) {
+
+    selectedCard.classList.add(
+      'selected'
+    );
+
+
+    const button =
+      selectedCard.querySelector(
+        '.select-button'
+      );
+
+
+    if (button) {
+
+      button.textContent =
+        '✓ KANDIDAT DIPILIH';
+
+    }
+
+  }
+
+
+  selectedInfo.innerHTML =
+
+    'Nomor ' +
+    escapeHtml(candidate.no) +
+    ' — ' +
+    escapeHtml(candidate.nama);
+
+
+  confirmationArea
+    .classList
+    .add('show');
+
+
+  confirmationArea
+    .scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+}
+
+
+
+/* =====================================================
+   OPEN CONFIRMATION
+   ===================================================== */
+
+confirmVoteButton.addEventListener(
+  'click',
+  () => {
+
+    if (
+      !selectedCandidate
+    ) {
+
+      return;
+
+    }
+
+
+    modalText.innerHTML =
+
+      'Anda memilih ' +
+
+      '<strong>' +
+
+      escapeHtml(
+        selectedCandidate.nama
+      ) +
+
+      '</strong>' +
+
+      ' sebagai kandidat nomor ' +
+
+      '<strong>' +
+
+      escapeHtml(
+        selectedCandidate.no
+      ) +
+
+      '</strong>.' +
+
+      '<br><br>' +
+
+      'Apakah Anda yakin ingin ' +
+
+      'menggunakan hak suara untuk kandidat ini?';
+
+
+    confirmModal
+      .classList
+      .add('show');
+
+  }
+);
+
+
+
+/* =====================================================
+   CLOSE MODAL
+   ===================================================== */
+
+cancelModal.addEventListener(
+  'click',
+  () => {
+
+    confirmModal
+      .classList
+      .remove('show');
+
+  }
+);
+
+
+
+/* =====================================================
+   SUBMIT VOTE
+   ===================================================== */
+
+confirmModalButton.addEventListener(
+  'click',
+  async () => {
+
+    if (
+      !selectedCandidate
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      submittingVote
+    ) {
+
+      return;
+
+    }
+
+
+    submittingVote =
+      true;
+
+
+    confirmModalButton.disabled =
+      true;
+
+
+    confirmModalButton.textContent =
+      'MENYIMPAN...';
+
+
+    try {
+
+      /*
+       * VALIDASI TOKEN LAGI
+       *
+       * Penting sebelum suara dikirim.
+       */
+
+      const valid =
+        await validateSession();
+
+
+      if (!valid) {
+
+        throw new Error(
+          'Sesi Anda sudah tidak valid. ' +
+          'Silakan login kembali.'
+        );
+
+      }
+
+
+      const token =
+        sessionStorage.getItem(
+          'vote_token'
+        );
+
+
+      if (!token) {
+
+        throw new Error(
+          'Token sesi tidak ditemukan.'
+        );
+
+      }
+
+
+      /*
+       * SUBMIT SUARA
+       */
+
+      const result =
+        await apiRequest({
+
+          action:
+            'submitVote',
+
+          token:
+            token,
+
+          idKandidat:
+            selectedCandidate.id
+
+        });
+
+
+      if (!result.success) {
+
+        throw new Error(
+          result.message ||
+          'Suara gagal disimpan.'
+        );
+
+      }
+
+
+      /*
+       * TOKEN SEGERA DIHAPUS
+       *
+       * Backend juga menghapus token.
+       */
+
+      sessionStorage.removeItem(
+        'vote_token'
+      );
+
+
+      sessionStorage.removeItem(
+        'vote_id_pemilih'
+      );
+
+
+      sessionStorage.removeItem(
+        'vote_nama'
+      );
+
+
+      /*
+       * TAMPILKAN BERHASIL
+       */
+
+      voteIdDisplay.textContent =
+        'ID Transaksi: ' +
+        (result.voteId || '-');
+
+
+      confirmModal
+        .classList
+        .remove('show');
+
+
+      votePage.style.display =
+        'none';
+
+
+      successPage.style.display =
+        'flex';
+
+
+    } catch (error) {
+
+      alert(
+        error.message ||
+        'Terjadi kesalahan saat menyimpan suara.'
+      );
+
+
+    } finally {
+
+      submittingVote =
+        false;
+
+      confirmModalButton.disabled =
+        false;
+
+      confirmModalButton.textContent =
+        'YA, PILIH';
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   SHOW VOTE PAGE
+   ===================================================== */
+
+function showVotePage() {
+
+  const nama =
+    sessionStorage.getItem(
+      'vote_nama'
+    );
+
+
+  voterBadge.textContent =
+    'Pemilih: ' +
+    (nama || '-');
+
+
+  loginPage.style.display =
+    'none';
+
+
+  votePage.style.display =
+    'block';
+
+
+  successPage.style.display =
+    'none';
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'instant'
+  });
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value ?? ''
+  )
+
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+
+    .replace(
+      /</g,
+      '&lt;'
+    )
+
+    .replace(
+      />/g,
+      '&gt;'
+    )
+
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+
+}
+
+
+
+/* =====================================================
+   CEK SESI SAAT HALAMAN DIBUKA
+   ===================================================== */
+
+async function checkExistingSession() {
+
+  const token =
+    sessionStorage.getItem(
+      'vote_token'
+    );
+
+
+  if (!token) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const valid =
+      await validateSession();
+
+
+    if (!valid) {
+
+      sessionStorage.clear();
+
+      return;
+
+    }
+
+
+    await loadCandidates();
+
+    showVotePage();
+
+
+  } catch (error) {
+
+    console.error(
+      'SESSION CHECK:',
+      error
+    );
+
+    sessionStorage.clear();
+
+  }
+
+}
+
+
+/* =====================================================
+   INIT
+   ===================================================== */
+
+console.log(
+  'Sistem Pemilihan Frontend aktif.'
+);
+
+
+checkExistingSession();
+
 
 </script>
 
+
 </body>
+
 </html>
