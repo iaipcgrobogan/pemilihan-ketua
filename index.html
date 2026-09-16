@@ -1298,7 +1298,117 @@
 
 <body>
 
+<!-- =====================================================
+     BOOT SCREEN
+     ===================================================== -->
 
+<div
+  id="bootScreen"
+  style="
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      linear-gradient(
+        135deg,
+        #087f3e 0%,
+        #18a663 45%,
+        #e9f8ef 100%
+      );
+  "
+>
+
+  <div
+    style="
+      width:100%;
+      max-width:360px;
+      margin:20px;
+      padding:32px 25px;
+      background:white;
+      border-radius:24px;
+      text-align:center;
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.18);
+    "
+  >
+
+    <div
+      style="
+        width:75px;
+        height:75px;
+        margin:0 auto 18px;
+        border-radius:50%;
+        background:#eef9f2;
+        border:3px solid #d7efdf;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#087f3e;
+        font-size:22px;
+        font-weight:800;
+      "
+    >
+      IAI
+    </div>
+
+    <div
+      style="
+        font-size:20px;
+        font-weight:800;
+        color:#173b2b;
+      "
+    >
+      Pemilihan Ketua
+    </div>
+
+    <div
+      style="
+        margin-top:5px;
+        color:#718078;
+        font-size:13px;
+      "
+    >
+      PC IAI Grobogan
+    </div>
+
+    <div
+      style="
+        margin-top:25px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        color:#087f3e;
+        font-size:13px;
+        font-weight:600;
+      "
+    >
+
+      <div
+        style="
+          width:17px;
+          height:17px;
+          border:2px solid #cfe8d8;
+          border-top-color:#087f3e;
+          border-radius:50%;
+          animation:spin .8s linear infinite;
+        "
+      ></div>
+
+      <span id="bootMessage">
+        Memeriksa sesi...
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+  
 <div class="app-container">
 
 
@@ -1674,6 +1784,12 @@ const API_URL =
    ELEMENT
    ===================================================== */
 
+const bootScreen =
+  document.getElementById('bootScreen');
+
+const bootMessage =
+  document.getElementById('bootMessage');
+  
 const loginPage =
   document.getElementById('loginPage');
 
@@ -2760,16 +2876,26 @@ function showVotePage() {
     (nama || '-');
 
 
+  /*
+   * Sembunyikan semua halaman lain
+   */
+
+  bootScreen.style.display =
+    'none';
+
   loginPage.style.display =
     'none';
 
+  successPage.style.display =
+    'none';
+
+
+  /*
+   * Tampilkan halaman voting
+   */
 
   votePage.style.display =
     'block';
-
-
-  successPage.style.display =
-    'none';
 
 
   window.scrollTo({
@@ -2778,7 +2904,6 @@ function showVotePage() {
   });
 
 }
-
 
 
 /* =====================================================
@@ -2820,7 +2945,26 @@ function escapeHtml(
 
 }
 
+/* =====================================================
+   SHOW LOGIN PAGE
+   ===================================================== */
 
+function showLoginPage() {
+
+  bootScreen.style.display =
+    'none';
+
+  loginPage.style.display =
+    'flex';
+
+  votePage.style.display =
+    'none';
+
+  successPage.style.display =
+    'none';
+
+}
+  
 
 /* =====================================================
    CEK SESI SAAT HALAMAN DIBUKA
@@ -2834,31 +2978,74 @@ async function checkExistingSession() {
     );
 
 
+  /*
+   * TIDAK ADA TOKEN
+   * berarti pemilih belum login.
+   */
+
   if (!token) {
+
+    showLoginPage();
 
     return;
 
   }
 
 
+  /*
+   * ADA TOKEN
+   * kita cek validitasnya terlebih dahulu.
+   */
+
   try {
+
+    bootMessage.textContent =
+      'Memverifikasi sesi...';
+
 
     const valid =
       await validateSession();
 
 
+    /*
+     * TOKEN TIDAK VALID
+     */
+
     if (!valid) {
 
       sessionStorage.clear();
+
+      showLoginPage();
 
       return;
 
     }
 
 
+    /*
+     * TOKEN VALID
+     */
+
+    bootMessage.textContent =
+      'Memuat data kandidat...';
+
+
     await loadCandidates();
 
+
+    /*
+     * Tampilkan halaman pemilihan
+     */
+
     showVotePage();
+
+
+    /*
+     * Hilangkan boot screen
+     */
+
+    bootScreen.style.display =
+      'none';
 
 
   } catch (error) {
@@ -2868,23 +3055,19 @@ async function checkExistingSession() {
       error
     );
 
+
+    /*
+     * Jika gagal memulihkan sesi,
+     * jangan biarkan layar boot menggantung.
+     */
+
     sessionStorage.clear();
+
+    showLoginPage();
 
   }
 
 }
-
-
-/* =====================================================
-   INIT
-   ===================================================== */
-
-console.log(
-  'Sistem Pemilihan Frontend aktif.'
-);
-
-
-checkExistingSession();
 
 
 </script>
