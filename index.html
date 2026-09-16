@@ -2065,96 +2065,112 @@ loginForm.addEventListener(
 
     try {
 
-      /*
-       * LOGIN
-       */
+  /*
+   * LOGIN
+   */
 
-      const result =
-        await apiRequest({
+  const result =
+    await apiRequest({
 
-          action:
-            'login',
+      action:
+        'login',
 
-          idPemilih:
-            idPemilih,
+      idPemilih:
+        idPemilih,
 
-          pin:
-            pin
+      pin:
+        pin
 
-        });
-
-
-      if (!result.success) {
-
-        showLoginMessage(
-          result.message ||
-          'Login gagal.'
-        );
-
-        return;
-
-      }
+    });
 
 
-      /*
-       * SIMPAN SESI
-       */
+  /*
+   * LOGIN GAGAL
+   */
 
-      sessionStorage.setItem(
-        'vote_token',
-        result.token
-      );
+  if (!result.success) {
 
+    showLoginMessage(
+      result.message ||
+      'Login gagal.'
+    );
 
-      sessionStorage.setItem(
-        'vote_id_pemilih',
-        result.idPemilih
-      );
-
-
-      sessionStorage.setItem(
-        'vote_nama',
-        result.nama
-      );
+    return;
+  }
 
 
-      /*
-       * LANGSUNG AMBIL KANDIDAT
-       *
-       * Login sudah berhasil dan backend sudah menerbitkan token.
-       * Validasi token kedua di sini hanya menambah satu request.
-       */
+  /*
+   * SIMPAN SESI SEGERA
+   */
 
-      await loadCandidates();
+  sessionStorage.setItem(
+    'vote_token',
+    result.token
+  );
 
+  sessionStorage.setItem(
+    'vote_id_pemilih',
+    result.idPemilih
+  );
 
-      /*
-       * TAMPILKAN HALAMAN PEMILIHAN
-       */
-
-      showVotePage();
-
-
-    } catch (error) {
-
-      console.error(
-        'LOGIN ERROR:',
-        error
-      );
-
-      showLoginMessage(
-        error.message && error.message.includes('HTTP 404')
-          ? 'Server API tidak ditemukan (HTTP 404). Periksa deployment Web App Apps Script.'
-          : 'Tidak dapat terhubung ke server. Periksa koneksi internet.'
-      );
+  sessionStorage.setItem(
+    'vote_nama',
+    result.nama
+  );
 
 
-    } finally {
+  /*
+   * LOGIN SUDAH BERHASIL.
+   * SEKARANG BARU AMBIL KANDIDAT.
+   */
 
-      setLoginLoading(false);
+  try {
 
-    }
+    await loadCandidates();
 
+  } catch (candidateError) {
+
+    console.error(
+      'LOAD CANDIDATES ERROR:',
+      candidateError
+    );
+
+    showLoginMessage(
+      'Login berhasil, tetapi data kandidat belum dapat dimuat. Silakan tekan MASUK lagi.',
+      'error'
+    );
+
+    return;
+  }
+
+
+  /*
+   * SEMUA SUDAH BERHASIL
+   */
+
+  showVotePage();
+
+
+} catch (error) {
+
+  console.error(
+    'LOGIN ERROR:',
+    error
+  );
+
+  showLoginMessage(
+    error.message &&
+    error.message.includes('HTTP 404')
+      ? 'Server API tidak ditemukan (HTTP 404).'
+      : 'Tidak dapat terhubung ke server. Periksa koneksi internet.'
+  );
+
+
+} finally {
+
+  setLoginLoading(false);
+
+}
   }
 );
 
