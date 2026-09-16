@@ -2976,80 +2976,46 @@ function showLoginPage() {
 async function checkExistingSession() {
 
   const token =
-    sessionStorage.getItem(
-      'vote_token'
-    );
-
+    sessionStorage.getItem('vote_token');
 
   /*
-   * TIDAK ADA TOKEN
-   * berarti pemilih belum login.
+   * BELUM LOGIN
    */
-
   if (!token) {
-
     showLoginPage();
-
     return;
-
   }
 
-
   /*
-   * ADA TOKEN
-   * kita cek validitasnya terlebih dahulu.
+   * SUDAH LOGIN
+   * Jangan kembali ke login saat refresh.
+   * Validasi token lalu langsung tampilkan kandidat.
    */
-
   try {
 
     bootMessage.textContent =
-      'Memverifikasi sesi...';
-
+      'Memulihkan sesi...';
 
     const valid =
       await validateSession();
 
-
-    /*
-     * TOKEN TIDAK VALID
-     */
-
     if (!valid) {
 
-      sessionStorage.clear();
+      sessionStorage.removeItem('vote_token');
+      sessionStorage.removeItem('vote_id_pemilih');
+      sessionStorage.removeItem('vote_nama');
 
       showLoginPage();
-
       return;
-
     }
 
-
     /*
-     * TOKEN VALID
+     * Token masih valid.
+     * Ambil kandidat dan langsung masuk halaman kandidat.
      */
-
-    bootMessage.textContent =
-      'Memuat data kandidat...';
-
-
     await loadCandidates();
 
-
-    /*
-     * Tampilkan halaman pemilihan
-     */
-
     showVotePage();
-
-
-    /*
-     * Hilangkan boot screen
-     */
-
-    bootScreen.style.display =
-      'none';
-
 
   } catch (error) {
 
@@ -3058,20 +3024,15 @@ async function checkExistingSession() {
       error
     );
 
-
     /*
-     * Jika gagal memulihkan sesi,
-     * jangan biarkan layar boot menggantung.
+     * Hanya kembali login jika sesi benar-benar
+     * tidak dapat dipulihkan.
      */
-
-    sessionStorage.clear();
-
     showLoginPage();
 
   }
 
 }
-
 /* =====================================================
    INITIALIZE APPLICATION
    ===================================================== */
