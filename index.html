@@ -1085,6 +1085,15 @@
     }
 
 
+    .modal-overlay.submitting .modal-confirm,
+    .modal-overlay.submitting .modal-cancel {
+      pointer-events: none;
+    }
+
+    .modal-overlay.submitting .modal {
+      cursor: wait;
+    }
+
     .modal-confirm {
 
       height: 48px;
@@ -2110,28 +2119,10 @@ loginForm.addEventListener(
 
 
       /*
-       * LANJUT VALIDASI TOKEN
-       */
-
-      const valid =
-        await validateSession();
-
-
-      if (!valid) {
-
-        sessionStorage.clear();
-
-        showLoginMessage(
-          'Sesi pemilihan tidak dapat divalidasi.'
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * AMBIL KANDIDAT
+       * LANGSUNG AMBIL KANDIDAT
+       *
+       * Login sudah berhasil dan backend sudah menerbitkan token.
+       * Validasi token kedua di sini hanya menambah satu request.
        */
 
       await loadCandidates();
@@ -2152,8 +2143,9 @@ loginForm.addEventListener(
       );
 
       showLoginMessage(
-        'Tidak dapat terhubung ke server. ' +
-        'Periksa koneksi internet.'
+        error.message && error.message.includes('HTTP 404')
+          ? 'Server API tidak ditemukan (HTTP 404). Periksa deployment Web App Apps Script.'
+          : 'Tidak dapat terhubung ke server. Periksa koneksi internet.'
       );
 
 
@@ -2727,6 +2719,13 @@ confirmModalButton.addEventListener(
     confirmModalButton.disabled =
       true;
 
+    cancelModal.disabled =
+      true;
+
+    confirmModal.classList.add(
+      'submitting'
+    );
+
 
     confirmModalButton.textContent =
       'MENYIMPAN...';
@@ -2735,24 +2734,10 @@ confirmModalButton.addEventListener(
     try {
 
       /*
-       * VALIDASI TOKEN LAGI
-       *
-       * Penting sebelum suara dikirim.
+       * TOKEN DIKIRIM LANGSUNG KE submitVote.
+       * Backend tetap melakukan seluruh validasi token, status pemilih,
+       * status pemilihan, dan kandidat sebelum menyimpan suara.
        */
-
-      const valid =
-        await validateSession();
-
-
-      if (!valid) {
-
-        throw new Error(
-          'Sesi Anda sudah tidak valid. ' +
-          'Silakan login kembali.'
-        );
-
-      }
-
 
       const token =
         sessionStorage.getItem(
@@ -2843,10 +2828,13 @@ confirmModalButton.addEventListener(
 
     } catch (error) {
 
-      alert(
-        error.message ||
-        'Terjadi kesalahan saat menyimpan suara.'
-      );
+      modalText.innerHTML =
+        '<strong>Suara belum dapat dikonfirmasi.</strong><br><br>' +
+        escapeHtml(
+          error.message ||
+          'Terjadi kesalahan saat menyimpan suara.'
+        ) +
+        '<br><br><small>Jangan klik berulang. Setelah tombol aktif kembali, pastikan status pemilih di server sebelum mencoba lagi.</small>';
 
 
     } finally {
@@ -2856,6 +2844,13 @@ confirmModalButton.addEventListener(
 
       confirmModalButton.disabled =
         false;
+
+      cancelModal.disabled =
+        false;
+
+      confirmModal.classList.remove(
+        'submitting'
+      );
 
       confirmModalButton.textContent =
         'YA, PILIH';
