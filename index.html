@@ -2973,24 +2973,102 @@ function showLoginPage() {
    CEK SESI SAAT HALAMAN DIBUKA
    ===================================================== */
 
-function checkExistingSession() {
+async function checkExistingSession() {
+
+  const token =
+    sessionStorage.getItem(
+      'vote_token'
+    );
+
 
   /*
-   * STARTUP SETELAH REFRESH / HARD REFRESH
-   *
-   * Jangan melakukan validateToken() otomatis di sini.
-   * Apps Script dapat mengembalikan redirect 404 sementara pada
-   * script.googleusercontent.com. Jika itu terjadi saat startup,
-   * halaman bisa terlihat macet dan login berikutnya ikut terganggu.
-   *
-   * Kita mulai setiap reload dari LOGIN dan membuang token sesi lama.
-   * Login berikutnya akan membuat token sesi baru dari server.
+   * TIDAK ADA TOKEN
+   * berarti pemilih belum login.
    */
-  sessionStorage.removeItem('vote_token');
-  sessionStorage.removeItem('vote_id_pemilih');
-  sessionStorage.removeItem('vote_nama');
 
-  showLoginPage();
+  if (!token) {
+
+    showLoginPage();
+
+    return;
+
+  }
+
+
+  /*
+   * ADA TOKEN
+   * kita cek validitasnya terlebih dahulu.
+   */
+
+  try {
+
+    bootMessage.textContent =
+      'Memverifikasi sesi...';
+
+
+    const valid =
+      await validateSession();
+
+
+    /*
+     * TOKEN TIDAK VALID
+     */
+
+    if (!valid) {
+
+      sessionStorage.clear();
+
+      showLoginPage();
+
+      return;
+
+    }
+
+
+    /*
+     * TOKEN VALID
+     */
+
+    bootMessage.textContent =
+      'Memuat data kandidat...';
+
+
+    await loadCandidates();
+
+
+    /*
+     * Tampilkan halaman pemilihan
+     */
+
+    showVotePage();
+
+
+    /*
+     * Hilangkan boot screen
+     */
+
+    bootScreen.style.display =
+      'none';
+
+
+  } catch (error) {
+
+    console.error(
+      'SESSION CHECK:',
+      error
+    );
+
+
+    /*
+     * Jika gagal memulihkan sesi,
+     * jangan biarkan layar boot menggantung.
+     */
+
+    sessionStorage.clear();
+
+    showLoginPage();
+
+  }
 
 }
 
