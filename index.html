@@ -14,11 +14,6 @@
     Pemilihan Ketua PC IAI Grobogan
   </title>
 
-  <link
-    rel="icon"
-    href="data:,"
-  >
-
 
   <style>
 
@@ -1980,140 +1975,38 @@ async function apiRequest(
   payload
 ) {
 
-  /*
-   * Google Apps Script kadang mengembalikan 404 sementara
-   * pada URL redirect script.googleusercontent.com.
-   *
-   * Retry HANYA untuk request yang aman/idempotent:
-   * - login
-   * - getCandidates
-   * - validateToken
-   *
-   * submitVote TIDAK di-retry otomatis karena request tersebut
-   * dapat saja sudah berhasil diproses di server walaupun
-   * respons browser gagal diterima.
-   */
-  const retryableActions = [
-    'login',
-    'getCandidates',
-    'validateToken'
-  ];
+  const response =
+    await fetch(
+      API_URL,
+      {
 
-  const maxAttempts =
-    retryableActions.includes(payload.action)
-      ? 2
-      : 1;
+        method: 'POST',
 
-  let lastError = null;
+        headers: {
 
-  for (
-    let attempt = 1;
-    attempt <= maxAttempts;
-    attempt++
-  ) {
+          'Content-Type':
+            'text/plain;charset=utf-8'
 
-    try {
+        },
 
-      const response =
-        await fetch(
-          API_URL,
-          {
-
-            method: 'POST',
-
-            cache: 'no-store',
-
-            headers: {
-
-              'Content-Type':
-                'text/plain;charset=utf-8'
-
-            },
-
-            body:
-              JSON.stringify(payload)
-
-          }
-        );
-
-
-      if (!response.ok) {
-
-        const error =
-          new Error(
-            'Server HTTP ' +
-            response.status
-          );
-
-        /*
-         * Hanya retry error gateway/not-found sementara.
-         */
-        if (
-          attempt < maxAttempts &&
-          [404, 502, 503, 504].includes(
-            response.status
-          )
-        ) {
-
-          await new Promise(
-            resolve =>
-              setTimeout(
-                resolve,
-                600
-              )
-          );
-
-          continue;
-
-        }
-
-        throw error;
+        body:
+          JSON.stringify(payload)
 
       }
+    );
 
 
-      return await response.json();
+  if (!response.ok) {
 
-    } catch (error) {
-
-      lastError = error;
-
-      /*
-       * Retry hanya untuk action aman dan error jaringan.
-       * HTTP 404/502/503/504 sudah ditangani di atas.
-       */
-      if (
-        attempt < maxAttempts &&
-        retryableActions.includes(
-          payload.action
-        ) &&
-        !String(error.message || '').match(
-          /HTTP (404|502|503|504)/
-        )
-      ) {
-
-        await new Promise(
-          resolve =>
-            setTimeout(
-              resolve,
-              600
-            )
-        );
-
-        continue;
-
-      }
-
-      throw error;
-
-    }
+    throw new Error(
+      'Server HTTP ' +
+      response.status
+    );
 
   }
 
-  throw lastError ||
-    new Error(
-      'Tidak dapat terhubung ke server.'
-    );
+
+  return await response.json();
 
 }
 
@@ -3083,31 +2976,19 @@ function showLoginPage() {
 function checkExistingSession() {
 
   /*
-   * MODE STARTUP:
+   * STARTUP SETELAH REFRESH / HARD REFRESH
    *
-   * Setelah browser di-refresh / hard refresh, selalu mulai
-   * dari halaman LOGIN.
+   * Jangan melakukan validateToken() otomatis di sini.
+   * Apps Script dapat mengembalikan redirect 404 sementara pada
+   * script.googleusercontent.com. Jika itu terjadi saat startup,
+   * halaman bisa terlihat macet dan login berikutnya ikut terganggu.
    *
-   * Jangan lagi memanggil validateToken() saat startup.
-   * Sebelumnya, refresh akan mengirim request validateToken
-   * ke Apps Script. Jika redirect script.googleusercontent.com
-   * sesekali mengembalikan 404, halaman memang kembali ke
-   * login tetapi koneksi berikutnya menjadi tidak konsisten.
-   *
-   * Token lama juga tidak perlu dipertahankan karena proses
-   * login berikutnya akan membuat token sesi baru.
+   * Kita mulai setiap reload dari LOGIN dan membuang token sesi lama.
+   * Login berikutnya akan membuat token sesi baru dari server.
    */
-  sessionStorage.removeItem(
-    'vote_token'
-  );
-
-  sessionStorage.removeItem(
-    'vote_id_pemilih'
-  );
-
-  sessionStorage.removeItem(
-    'vote_nama'
-  );
+  sessionStorage.removeItem('vote_token');
+  sessionStorage.removeItem('vote_id_pemilih');
+  sessionStorage.removeItem('vote_nama');
 
   showLoginPage();
 
