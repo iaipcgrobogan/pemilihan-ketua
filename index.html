@@ -1975,23 +1975,42 @@ async function apiRequest(
   payload
 ) {
 
+  /*
+   * Cache-buster.
+   *
+   * Membuat setiap request memiliki URL unik
+   * sehingga request tidak bergantung pada
+   * response redirect lama dari Google Apps Script.
+   */
+
+  const separator =
+    API_URL.includes('?')
+      ? '&'
+      : '?';
+
+  const requestUrl =
+    API_URL +
+    separator +
+    '_=' +
+    Date.now();
+
+
   const response =
     await fetch(
-      API_URL,
+      requestUrl,
       {
-
         method: 'POST',
 
         headers: {
-
           'Content-Type':
             'text/plain;charset=utf-8'
-
         },
 
         body:
-          JSON.stringify(payload)
+          JSON.stringify(payload),
 
+        cache:
+          'no-store'
       }
     );
 
@@ -2009,7 +2028,6 @@ async function apiRequest(
   return await response.json();
 
 }
-
 
 
 /* =====================================================
@@ -2069,19 +2087,103 @@ loginForm.addEventListener(
    * LOGIN
    */
 
-  const result =
-    await apiRequest({
+  let result = null;
+let lastLoginError = null;
 
-      action:
-        'login',
 
-      idPemilih:
-        idPemilih,
+/*
+ * LOGIN RETRY
+ *
+ * Maksimal 3 percobaan.
+ *
+ * Retry hanya dilakukan jika terjadi
+ * HTTP error / gangguan koneksi.
+ *
+ * Jika server mengembalikan JSON
+ * success:false, TIDAK diulang.
+ */
 
-      pin:
-        pin
+for (
+  let attempt = 1;
+  attempt <= 3;
+  attempt++
+) {
 
-    });
+  try {
+
+    result =
+      await apiRequest({
+
+        action:
+          'login',
+
+        idPemilih:
+          idPemilih,
+
+        pin:
+          pin
+
+      });
+
+
+    /*
+     * Server sudah memberikan response.
+     *
+     * Berhenti retry meskipun
+     * login ditolak karena PIN salah,
+     * pemilih sudah memilih, dll.
+     */
+
+    lastLoginError = null;
+
+    break;
+
+
+  } catch (error) {
+
+    lastLoginError =
+      error;
+
+
+    console.warn(
+      'LOGIN ATTEMPT ' +
+      attempt +
+      ' GAGAL:',
+      error
+    );
+
+
+    /*
+     * Kalau masih ada kesempatan,
+     * tunggu sebentar sebelum mencoba lagi.
+     */
+
+    if (attempt < 3) {
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            1000 * attempt
+          )
+      );
+
+    }
+
+  }
+
+}
+
+
+/*
+ * Semua percobaan gagal.
+ */
+
+if (lastLoginError) {
+
+  throw lastLoginError;
+
+}
 
 
   /*
