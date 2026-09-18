@@ -2097,93 +2097,12 @@ loginForm.addEventListener(
    * LOGIN
    */
 
-  let result = null;
-let lastLoginError = null;
-
-
-/*
- * LOGIN RETRY
- *
- * Maksimal 3 percobaan.
- *
- * Retry hanya dilakukan jika terjadi
- * HTTP error / gangguan koneksi.
- *
- * Jika server mengembalikan JSON
- * success:false, TIDAK diulang.
- */
-
-for (
-  let attempt = 1;
-  attempt <= 3;
-  attempt++
-) {
-
-  try {
-
-    result =
-      await apiRequest({
-
-        action:
-          'login',
-
-        idPemilih:
-          idPemilih,
-
-        pin:
-          pin
-
-      });
-
-
-    /*
-     * Server sudah memberikan response.
-     *
-     * Berhenti retry meskipun
-     * login ditolak karena PIN salah,
-     * pemilih sudah memilih, dll.
-     */
-
-    lastLoginError = null;
-
-    break;
-
-
-  } catch (error) {
-
-    lastLoginError =
-      error;
-
-
-    console.warn(
-      'LOGIN ATTEMPT ' +
-      attempt +
-      ' GAGAL:',
-      error
-    );
-
-
-    /*
-     * Kalau masih ada kesempatan,
-     * tunggu sebentar sebelum mencoba lagi.
-     */
-
-    if (attempt < 3) {
-
-      await new Promise(
-        resolve =>
-          setTimeout(
-            resolve,
-            1000 * attempt
-          )
-      );
-
-    }
-
-  }
-
-}
-
+const result =
+  await apiRequest({
+    action: 'login',
+    idPemilih: idPemilih,
+    pin: pin
+  });
 
 /*
  * Semua percobaan gagal.
@@ -2231,36 +2150,28 @@ if (lastLoginError) {
   );
 
 
-  /*
-   * LOGIN SUDAH BERHASIL.
-   * SEKARANG BARU AMBIL KANDIDAT.
-   */
+ /*
+ * LOGIN BERHASIL
+ * Kandidat sudah dikirim bersamaan
+ * dengan response login.
+ */
 
-  try {
+candidates =
+  Array.isArray(result.candidates)
+    ? result.candidates
+    : [];
 
-    await loadCandidates();
+if (candidates.length === 0) {
 
-  } catch (candidateError) {
+  throw new Error(
+    'Data kandidat belum tersedia.'
+  );
 
-    console.error(
-      'LOAD CANDIDATES ERROR:',
-      candidateError
-    );
+}
 
-    showLoginMessage(
-      'Login berhasil, tetapi data kandidat belum dapat dimuat. Silakan tekan MASUK lagi.',
-      'error'
-    );
+renderCandidates();
 
-    return;
-  }
-
-
-  /*
-   * SEMUA SUDAH BERHASIL
-   */
-
-  showVotePage();
+showVotePage();
 
 
 } catch (error) {
